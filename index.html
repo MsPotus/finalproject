@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Calculator</title>
+	</head>
+	<body>
+		<style type="text/css">
+			input{
+				height: 85px;
+				width: 83px;
+				font-size: 40px;
+				background-color: black;
+				color: white;
+			}
+
+			input:hover{
+				background-color: grey;
+				color: red;
+			}
+			body{
+				background: url("ribbon.jpg");
+				background: cover;
+				
+			}
+
+			
+			h1{
+				width: 295px;
+				height: 40px;
+				text-align: right;
+				border: solid 5px;
+				border-radius: 27px;
+				padding: 20px;
+				background-color: #ff33a0;
+			}
+			div{
+				border: solid 2px black;
+				width: 350px;
+				height: 680px;
+				margin: 200px auto 200px auto;
+				padding-left: 20px;
+				padding-right: 20px;
+ 				position: center;
+ 				background-color: pink;
+				border-radius: 30px;
+			}	
+		</style>
+		<div align="center">
+			<h1 id="display"></h1>
+				<input type="button" value="MR" onclick="memory()">
+				<input type="button" value="M-" onclick="memorySub()">
+				<input type="button" value="M+" onclick="memoryAdd()">
+				<input type="button" value="MC" onclick="memoryCal()"><br>
+				<input type="button" value="7" onclick="show(this)">
+				<input type="button" value="8" onclick="show(this)"> 
+				<input type="button" value="9" onclick="show(this)">
+				<input type="button" value="*" onclick="show(this)"><br>
+				<input type="button" value="4" onclick="show(this)">
+				<input type="button" value="5" onclick="show(this)">
+			 	<input type="button" value="6" onclick="show(this)">
+			 	<input type="button" value="-" onclick="show(this)"><br>
+			 	<input type="button" value="1" onclick="show(this)">
+			 	<input type="button" value="2" onclick="show(this)">
+			 	<input type="button" value="3" onclick="show(this)">
+			 	<input type="button" value="+" onclick="show(this)"><br>
+			 	<input type="button" value="0" onclick="show(this)">
+			 	<input type="button" value="." onclick="show(this)">
+			 	<input type="button" value="C" onclick="delet()">
+				<input type="button" value="/" onclick="show(this)"><br>
+				<input type="button" value="%" onclick="percent()">
+				<input type="button" value="AC" onclick="allClear()">
+				<input type="button" value="+/-" onclick="plusMinus()">
+			 	<input type="button" value="=" onclick="calculate()"><br>
+		</div>
+		<script type="text/javascript">
+
+			var screen = document.getElementById("display");
+			console.log(screen);
+			var era=0;
+			var mem=0; // The number that was stored perviously
+			var current=0; // value of current display
+			var maxLength=10; //maximum length of digits before the decimal
+			var screen2=document.getElementById("display").innerHTML; // to add digit only
+
+			function addDigit(dig) {
+				var screen = document.getElementById("display");
+				var screen2=document.getElementById("display").innerHTML;
+				if (screen2.length > maxLength) {
+					console.log(screen2.length);
+					screen.style.fontSize="25px";
+					screen.innerHTML= "Really now, that is too long"; //limit length
+					era = 1;
+				}else if(era==1){
+					screen.innerHTML="";
+					screen.style.fontSize = "40px";
+					screen.innerHTML += dig;
+					era=0;
+				}else{
+					screen.style.fontSize = "40px";
+					screen.innerHTML += dig;
+				}
+ 			}
+
+ 			function dot() //Put in the decimal point "." when necessary
+ 				{
+ 					if (current.length == 0) // no "." necessary
+ 					 {
+ 					 	current= "0.";
+ 					 } else {
+ 					 	if (current.indexOf(".") == -1) {
+ 					 		current = current + "."
+ 					 	}; 
+ 					 };
+ 				document.getElementById("display").innerHTML = Current;
+ 			}
+
+			function plusMinus(){
+		      	if ( screen.innerHTML.indexOf("-") == 0 ){ 
+		         	screen.innerHTML = screen.innerHTML.substring(1);
+		        }
+		        else{ 
+		        	screen.innerHTML = "-" + screen.innerHTML;
+		        }
+			 }
+
+			function memory() {
+			 	document.getElementById("display").innerHTML += mem;
+			}
+
+			function memoryCal() {
+				document.getElementById("display").innerHTML = mem;
+			}
+
+			function memorySub(){
+				mem -= parseInt(document.getElementById("display").innerHTML);
+			}
+
+			function memoryAdd(){
+				mem += parseInt(document.getElementById("display").innerHTML);
+			}
+
+			function show(sign){
+				var value = sign.value;
+				console.log(value);
+				addDigit(value);
+
+			}
+			function delet(){
+				document.getElementById("display").innerHTML = "";
+			}
+
+			function calculate(){
+				var string = document.getElementById("display").innerHTML;
+				document.getElementById("display").innerHTML = eval(string);
+			}
+
+			function allClear(){
+
+				memoryCal()
+				delet()
+			}
+
+			function percent(){
+				
+				screen.innerHTML = eval(screen.innerHTML)/100
+			}	
+
+			
+		</script>
+	</body>
+</html>
